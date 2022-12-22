@@ -1,0 +1,26 @@
+{% extends "frame.html" %}
+
+{% block home_page %}
+    <body>
+        <div class="p-5 bg-secondary text-white text-center">
+            <h1>ToneBook</h1>
+            <p>A trusted destination for authors worldwide!</p>
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                <blockquote class="blockquote text-center">
+                    <h3>We believe in the power of words</h3>
+                    <p class="mb-0">Tonebook is here to help you authors, produce the highest quality of written work possible with our state-of-the-art text editor.
+                        Create clean, simple yet elegant documents with the capabilities of having different perspectives on your work via the enhanced grammar and spelling checker
+                        with a special bonus of our industry setting Tone analysis and suggestion.
+                    </p>
+                </blockquote>
+                <div class="text-center">
+                    <a href="{% url "register" %}">
+                        <button type="submit" style="width: 25%;" class="btn btn-success">Register Now</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
+{% endblock %}

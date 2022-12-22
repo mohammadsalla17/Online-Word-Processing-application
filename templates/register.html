@@ -1,0 +1,34 @@
+{% extends 'frame.html' %}
+{% block content %}
+<div class="p-5 bg-secondary text-white text-center">
+    <h1>Register</h1>
+    <p>Please fill in the registration form below!</p>
+</div>
+
+<div class="row d-flex justify-content-center">
+    <div class="login_area">
+        <div class="col-md">
+            {% if error %}
+                <div class="alert alert-warning">{{error}}</div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="container" style="width: 500px;padding: 12px;">
+                  <div class="mb-3">
+                    <label for="username" class="form-label" style="font-weight: bold;">Username</label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Enter a username">
+                  </div>
+  
+                  <div class="mb-3">
+                    <label for="password" class="form-label" style="font-weight: bold;">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter a password">
+                  </div>
+  
+                  <button type="submit" class="btn btn-success">Register</button>
+                </div>
+              </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

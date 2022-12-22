@@ -1,0 +1,79 @@
+{% extends "frame.html" %}
+{% block content %}
+    <div class="p-5 bg-secondary text-white text-center">
+        <h1>Account</h1>
+    </div>
+    <div class="row" v-if="message!=''">
+        <div class="alert alert-dark">[[message]]</div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="float-end">
+                <button class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#new_file_modal" @click="clearFileActions()">New File</button>
+            </div>
+        </div>
+    </div>
+    <div class="row" v-if="user">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Created</td>
+                        <td>Last Modified</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="file in user.files">
+                        <td>[[file.name]]</td>
+                        <td>[[friendlyDateTime(file.created)]]</td>
+                        <td>[[friendlyDateTime(file.modified)]]</td>
+                        <td>
+                            <a :href="file.edit"><button class="btn btn-dark btn-sm-layout">Edit</button></a>
+                            <button class="btn btn-dark btn-sm-layout" data-bs-toggle="modal" data-bs-target="#rename_file_modal" @click="action_file.data=file;action_file.name=file.name;">Rename</button>
+                            <button class="btn btn-dark btn-sm-layout" @click="deleteFile(file)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal" id="new_file_modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enter a file name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="clearFileActions()"></button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="text" placeholder="Name of the file" v-model="action_file.name">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @click="createFile()">Create</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="clearFileActions()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="rename_file_modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enter the new file name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="clearFileActions()"></button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="text" placeholder="Name of the file" v-model="action_file.name">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @click="renameFile(action_file.data)">Rename</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="clearFileActions()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
